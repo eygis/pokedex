@@ -15,14 +15,21 @@ class App extends React.Component {
       const res = await fetch("https://pokeapi.co/api/v2/pokemon/" + name)
       const data = await res.json()
       this.setState(data)
-      console.log(this.state.sprites.front_default)
+      //console.log(this.state.sprites.front_default)
     }
     getData()
-    
+    document.getElementById("searchForm").reset();
   }
   
   render() {
   
+    let valueFunction = (value) => {
+      if (!value.sprites) {
+        return null;
+      } else {
+        return value.sprites.other["official-artwork"].front_default
+      }
+    }
   
     return (
     <div className="App">
@@ -36,7 +43,7 @@ class App extends React.Component {
         </form>
         <Display 
           name={this.state.name}
-          picture={this.state.sprites.front_default}
+          picture={valueFunction(this.state)}
           />
       </div>
       <div id="footer">Pokémon and Pokémon character names are trademarks of Nintendo.</div>
@@ -52,7 +59,7 @@ class Display extends React.Component {
     
     return (
       <div id="display">
-      <img src={picture} />
+      <img src={picture} alt={name} />
       <p>{name}</p>
       </div>
     )
