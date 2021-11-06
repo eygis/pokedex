@@ -26,7 +26,18 @@ body {
   left: 0;
 }
 
-.test {
-  margin-top: 500px;
-  border: solid green;
+#content {
+  margin-top: 175px;
+  order: solid green;
+  text-align: center;
+}
+
+#searchInput {
+  width: 15%;
+  text-align: center;
+  border-right: none;
+}
+
+#searchButton {
+  border-left: none;
 }
