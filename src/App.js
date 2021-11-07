@@ -59,8 +59,8 @@ class Display extends React.Component {
     
     return (
       <div id="display">
+      <p id="pokemonName">{name}</p>
       <img src={picture} alt={name} />
-      <p>{name}</p>
       </div>
     )
   }
