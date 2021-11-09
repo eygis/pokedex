@@ -31,6 +31,33 @@ class App extends React.Component {
       }
     }
 
+    let genFunction = (value) => {
+      if (!value["game_indices"]) {
+        return null;
+      } else {
+        switch(value["game_indices"][0].version.name) {
+          case "red":
+          return " first appeared in Generation I."
+          case "gold":
+          return " first appeared in Generation II."
+          case "ruby":
+          return " first appeared in Generation III."
+          case "diamond":
+          return " first appeared in Generation IV."
+          case "black":
+          return " first appeared in Generation V."
+          case "x":
+          return " first appeared in Generation VI."
+          case "sun":
+          return " first appeared in Generation VII."
+          case "sword":
+          return " first appeared in Generation VIII."
+          default:
+          return null
+        }
+      }
+    }
+
     let typeFunction = (value) => {
       let type = "";
       if (!value.types) {
@@ -43,9 +70,9 @@ class App extends React.Component {
             value.types[0].type.name[0] === "i"||
             value.types[0].type.name[0] === "o"||
             value.types[0].type.name[0] === "u") {
-          return " is an " + type + " type Pokémon."
+          return " is an " + type + " type Pokémon. "
         } else {
-          return " is a " + type + " type Pokémon."
+          return " is a " + type + " type Pokémon. "
         }
       }
       else if (value.types.length === 2) {
@@ -55,17 +82,16 @@ class App extends React.Component {
           value.types[0].type.name[0] === "i"||
           value.types[0].type.name[0] === "o"||
           value.types[0].type.name[0] === "u") {
-          return " is an " + type + " type Pokémon."
+          return " is an " + type + " type Pokémon. "
         } else {
-          return " is a " + type + " type Pokémon."
+          return " is a " + type + " type Pokémon. "
         }
       }
     }
-  
     return (
     <div className="App">
       <div id="banner">
-      <h1><a href="https://fontmeme.com/pokemon-font/"><img src="https://fontmeme.com/permalink/211104/a930b2e32421ad097d5a5dcdedaa93f0.png" alt="pokemon-title" /></a></h1>
+      <h1><img src="https://fontmeme.com/permalink/211104/a930b2e32421ad097d5a5dcdedaa93f0.png" alt="pokemon-title" /></h1>
       </div>
       <div id="content">
         <form id="searchForm" onSubmit={(e)=>this.searchFuncton(e)}>
@@ -76,6 +102,7 @@ class App extends React.Component {
           name={this.state.name}
           picture={pictureFunction(this.state)}
           type={typeFunction(this.state)}
+          generation={genFunction(this.state)}
           />
       </div>
       <div id="footer">Pokémon and Pokémon character names are trademarks of Nintendo.</div>
@@ -92,7 +119,7 @@ class Display extends React.Component {
     return (
       <div id="display">
       <h1 id="pokemonName">{name}</h1>
-      <p className="info">{name}{type}</p>
+      <p className="info">{name}{type}{name}{generation}</p>
       <img src={picture} alt={name} />
       </div>
     )
