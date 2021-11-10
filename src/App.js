@@ -23,6 +23,14 @@ class App extends React.Component {
   
   render() {
   
+    let nameFunction = (value) => {
+      if (!value.name) {
+        return null;
+      } else {
+        return value.name[0].toUpperCase() + value.name.substring(1);
+      }
+    }
+
     let pictureFunction = (value) => {
       if (!value.sprites) {
         return null;
@@ -88,6 +96,10 @@ class App extends React.Component {
         }
       }
     }
+    
+
+     
+
     return (
     <div className="App">
       <div id="banner">
@@ -99,7 +111,7 @@ class App extends React.Component {
           <button id="searchButton" type="submit">Search</button>
         </form>
         <Display 
-          name={this.state.name}
+          name={nameFunction(this.state)}
           picture={pictureFunction(this.state)}
           type={typeFunction(this.state)}
           generation={genFunction(this.state)}
