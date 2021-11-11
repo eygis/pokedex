@@ -41,3 +41,12 @@ body {
 #searchButton {
   border-left: none;
 }
+
+#pokePicture {
+  display: block;
+  margin: auto;
+}
+
+#information {
+  display: inline;
+}
