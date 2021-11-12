@@ -131,7 +131,7 @@ class Display extends React.Component {
     return (
       <div id="display">
       <h1 id="pokemonName">{name}</h1>
-      <p id="information" className="info">{name}{type}{name}{generation}</p>
+      <p id="information"className="info">{name}{type}{name}{generation}</p>
       <img id="pokePicture" src={picture} alt={name} />
       </div>
     )
