@@ -15,7 +15,7 @@ class App extends React.Component {
       const res = await fetch("https://pokeapi.co/api/v2/pokemon/" + name)
       const data = await res.json()
       this.setState(data)
-      //console.log(this.state.sprites.front_default)
+      //console.log(this.state)
     }
     getData()
     document.getElementById("searchForm").reset();
@@ -40,34 +40,40 @@ class App extends React.Component {
     }
 
     let genFunction = (value) => {
+      let name = nameFunction(value)
       if (!value["game_indices"]) {
         return null;
       } else {
+          try {
         switch(value["game_indices"][0].version.name) {
           case "red":
-          return " first appeared in Generation I."
+          return name + " first appeared in Generation I."
           case "gold":
-          return " first appeared in Generation II."
+          return name + " first appeared in Generation II."
           case "ruby":
-          return " first appeared in Generation III."
+          return name + " first appeared in Generation III."
           case "diamond":
-          return " first appeared in Generation IV."
+          return name + " first appeared in Generation IV."
           case "black":
-          return " first appeared in Generation V."
+          return name + " first appeared in Generation V."
           case "x":
-          return " first appeared in Generation VI."
+          return name + " first appeared in Generation VI."
           case "sun":
-          return " first appeared in Generation VII."
+          return name + " first appeared in Generation VII."
           case "sword":
-          return " first appeared in Generation VIII."
+          return name + " first appeared in Generation VIII."
           default:
           return null
-        }
+        } 
+      } catch (err) {
+        console.error(err)
       }
+    }
     }
 
     let typeFunction = (value) => {
       let type = "";
+      let name = nameFunction(value)
       if (!value.types) {
         return null;
       }
@@ -78,9 +84,9 @@ class App extends React.Component {
             value.types[0].type.name[0] === "i"||
             value.types[0].type.name[0] === "o"||
             value.types[0].type.name[0] === "u") {
-          return " is an " + type + " type Pokémon. "
+          return name + " is an " + type + " type Pokémon. "
         } else {
-          return " is a " + type + " type Pokémon. "
+          return name + " is a " + type + " type Pokémon. "
         }
       }
       else if (value.types.length === 2) {
@@ -90,14 +96,30 @@ class App extends React.Component {
           value.types[0].type.name[0] === "i"||
           value.types[0].type.name[0] === "o"||
           value.types[0].type.name[0] === "u") {
-          return " is an " + type + " type Pokémon. "
+          return name + " is an " + type + " type Pokémon. "
         } else {
-          return " is a " + type + " type Pokémon. "
+          return name + " is a " + type + " type Pokémon. "
         }
       }
     }
     
-
+    let evolutionFunction = (value) => {
+      if (!value.species) {
+        return null
+      } else {
+      let id = value.id;
+      const getData = async () => {
+        const resone = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
+        const dataone = await resone.json()
+        const chain = dataone.evolution_chain.url;
+        //console.log(chain)
+        const restwo = await fetch(chain)
+        const datatwo = await restwo.json()
+        //console.log(datatwo)
+      }
+      getData()
+    }
+    }
      
 
     return (
@@ -115,6 +137,7 @@ class App extends React.Component {
           picture={pictureFunction(this.state)}
           type={typeFunction(this.state)}
           generation={genFunction(this.state)}
+          evolution={evolutionFunction(this.state)}
           />
       </div>
       <div id="footer">Pokémon and Pokémon character names are trademarks of Nintendo.</div>
@@ -131,7 +154,7 @@ class Display extends React.Component {
     return (
       <div id="display">
       <h1 id="pokemonName">{name}</h1>
-      <p id="information"className="info">{name}{type}{name}{generation}</p>
+      <p id="information"className="info">{type}{generation}</p>
       <img id="pokePicture" src={picture} alt={name} />
       </div>
     )
