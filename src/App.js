@@ -78,7 +78,7 @@ class App extends React.Component {
         return null;
       }
       else if (value.types.length === 1) {
-        type = value.types[0].type.name;
+        type = value.types[0].type.name[0].toUpperCase() + value.types[0].type.name.substring(1);
         if (value.types[0].type.name[0] === "a"||
             value.types[0].type.name[0] === "e"||
             value.types[0].type.name[0] === "i"||
@@ -90,7 +90,7 @@ class App extends React.Component {
         }
       }
       else if (value.types.length === 2) {
-        type = value.types[0].type.name + "/" + value.types[1].type.name;
+        type = value.types[0].type.name[0].toUpperCase() + value.types[0].type.name.substring(1) + "/" + value.types[1].type.name[0].toUpperCase() + value.types[1].type.name.substring(1);
         if (value.types[0].type.name[0] === "a"||
           value.types[0].type.name[0] === "e"||
           value.types[0].type.name[0] === "i"||
