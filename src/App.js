@@ -111,11 +111,19 @@ class App extends React.Component {
       const getData = async () => {
         const resone = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
         const dataone = await resone.json()
-        const chain = dataone.evolution_chain.url;
+        if (dataone["evolves_from_species"] === null) {
+        const chain = dataone["evolution_chain"].url;
         //console.log(chain)
         const restwo = await fetch(chain)
         const datatwo = await restwo.json()
-        //console.log(datatwo)
+        try { 
+        console.log(datatwo.chain["evolves_to"][0].species.name)
+        } catch (err) {
+          console.log("no evolution")
+        }
+        } else {
+          console.log("already evolved")
+        }
       }
       getData()
     }
