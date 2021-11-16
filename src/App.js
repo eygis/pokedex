@@ -117,12 +117,22 @@ class App extends React.Component {
         const restwo = await fetch(chain)
         const datatwo = await restwo.json()
         try { 
-        console.log(datatwo.chain["evolves_to"][0].species.name)
+        console.log(this.state.name + " evolves to " + datatwo.chain["evolves_to"][0].species.name + ".")
         } catch (err) {
-          console.log("no evolution")
+          console.log(this.state.name + " is not known to evolve.")
         }
         } else {
-          console.log("already evolved")
+          const chain = dataone["evolution_chain"].url;
+          const restwo = await fetch(chain)
+          const datatwo = await restwo.json()
+          if (datatwo.chain["evolves_to"][0]["evolves_to"].length === 0) {
+            console.log(this.state.name + " evolves from " + datatwo.chain.species.name + ".")
+          }
+          else if (this.state.name !== datatwo.chain["evolves_to"][0]["evolves_to"][0].species.name) {
+            console.log(this.state.name + " evolves to " + datatwo.chain["evolves_to"][0]["evolves_to"][0].species.name + ".")
+          } else {
+            console.log(this.state.name + " evolves from " + datatwo.chain["evolves_to"][0].species.name + ".")
+          }
         }
       }
       getData()
