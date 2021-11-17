@@ -45,6 +45,7 @@ class App extends React.Component {
         return null;
       } else {
           try {
+        
         switch(value["game_indices"][0].version.name) {
           case "red":
           return name + " first appeared in Generation I."
@@ -64,7 +65,7 @@ class App extends React.Component {
           return name + " first appeared in Generation VIII."
           default:
           return null
-        } 
+        }   
       } catch (err) {
         console.error(err)
       }
