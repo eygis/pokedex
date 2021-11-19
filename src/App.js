@@ -89,7 +89,7 @@ let NittyGritty = (data) => {
         types[0][0] === "i" ||
         types[0][0] === "o" ||
         types[0][0] === "u" ? `an ${joinedTypes}` : `a ${joinedTypes}`}
-        {/*generationPlaceholder*/}
+        {/*generationFunctionPlaceholder*/}
         <img src={image} alt={name} id="pokePicture" />
       </p>
     </div>
