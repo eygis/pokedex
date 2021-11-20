@@ -63,9 +63,9 @@ class SearchReturn extends React.Component {
 
   render() {
     if (this.state.error) {
-      return null
+      return "Pokémon not found."
     } else if (this.state.loading) {
-      return "Loading"
+      return "Loading..."
     } else if (this.state.data) {
       return <NittyGritty data={this.state.data} />
     } else {
@@ -78,22 +78,55 @@ class SearchReturn extends React.Component {
 let NittyGritty = (data) => {
   const name = `${data.data.name[0].toUpperCase()}${data.data.name.slice(1)}`;
   const types = data.data.types.map(type => `${type.type.name[0].toUpperCase()}${type.type.name.slice(1)}`);
-  const joinedTypes = types.join("/") + " type Pokémon"
+  const joinedTypes = types.join("/") + " type Pokémon."
   const image = data.data.sprites.other["official-artwork"].front_default;
   return (
     <div id="display">
       <h1 id="pokemonName">{name}</h1>
-      <p id="information" className="info">
+      <span id="information" className="info">
         {name} is {types[0][0] === "a" ||
         types[0][0] === "e" ||
         types[0][0] === "i" ||
         types[0][0] === "o" ||
-        types[0][0] === "u" ? `an ${joinedTypes}` : `a ${joinedTypes}`}
-        {/*generationFunctionPlaceholder*/}
+        types[0][0] === "u" ? `an ${joinedTypes}` : `a ${joinedTypes} `}
+        <GenFunction species={data.data.species.url} />
         <img src={image} alt={name} id="pokePicture" />
-      </p>
+      </span>
     </div>
   )
+}
+
+class GenFunction extends React.Component {
+  state = {
+    data: null,
+    error: null,
+  }
+  
+  async componentDidMount() {
+    try {
+      const res = await fetch(this.props.species);
+      const data = await res.json();
+      this.setState({data: data})
+    } catch (err) {
+      this.setState({error: true})
+      console.log(err)
+    }
+  }
+  render() {
+
+  if (this.state.error) {
+    return null
+  } else if (this.state.data) {
+    
+    return (
+    <span>
+    {this.state.data.name[0].toUpperCase()}{this.state.data.name.slice(1)} first appeared in Generation {this.state.data.generation.name.split("-")[1].toUpperCase()}.
+    </span>
+  )
+  } else {
+    return "..."
+  }
+}
 }
 
 
