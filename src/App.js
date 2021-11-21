@@ -59,6 +59,7 @@ class SearchReturn extends React.Component {
         loading: false
       })
     }
+    document.getElementById("searchForm").reset();
   }
 
   render() {
