@@ -68,7 +68,7 @@ class SearchReturn extends React.Component {
     } else if (this.state.loading) {
       return "Loading..."
     } else if (this.state.data) {
-      return <NittyGritty data={this.state.data} />
+      return <NameAndPicture data={this.state.data} />
     } else {
       return null
     }
@@ -76,13 +76,13 @@ class SearchReturn extends React.Component {
 
 }
 
-let NittyGritty = (data) => {
+let NameAndPicture = (data) => {
   const name = `${data.data.name[0].toUpperCase()}${data.data.name.slice(1)}`;
   const types = data.data.types.map(type => `${type.type.name[0].toUpperCase()}${type.type.name.slice(1)}`);
   const joinedTypes = types.join("/") + " type Pokémon."
   const image = data.data.sprites.other["official-artwork"].front_default;
   return (
-    <div id="display">
+    <div id="display1">
       <h1 id="pokemonName">{name}</h1>
       <span id="information" className="info">
         {name} is {types[0][0] === "a" ||
@@ -100,7 +100,7 @@ let NittyGritty = (data) => {
 class GenFunction extends React.Component {
   state = {
     data: null,
-    error: null,
+    error: false,
   }
   
   async componentDidMount() {
@@ -120,14 +120,47 @@ class GenFunction extends React.Component {
   } else if (this.state.data) {
     
     return (
+    <div id="display2">
     <span>
     {this.state.data.name[0].toUpperCase()}{this.state.data.name.slice(1)} first appeared in Generation {this.state.data.generation.name.split("-")[1].toUpperCase()}.
     </span>
+    <EvolutionChain name={this.state.data.name} chainUrl={this.state.data["evolution_chain"].url} />
+    </div>
   )
   } else {
     return "..."
   }
 }
+}
+
+class EvolutionChain extends React.Component {
+  state = {
+    data: null,
+    error: false,
+  }
+
+  async componentDidMount() {
+    try {
+      const res = await fetch(this.props.chainUrl);
+      const data = await res.json();
+      this.setState({data: data})
+    } catch (err) {
+      this.setState({error: true})
+      console.log(err)
+    }
+  }
+
+  render() {
+
+    if (this.state.error) {
+      return null
+    } else if (this.state.data) {
+      return <div>data</div>
+    } else {
+      return <div>...</div>
+    }
+  }
+
 }
 
 
