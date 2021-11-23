@@ -46,7 +46,7 @@ class SearchReturn extends React.Component {
   };
 
   async componentDidMount() {
-    const pokemon = this.props.targetPokemon
+    const pokemon = this.props.targetPokemon.toLowerCase();
     const pokemonEndpoint = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
     this.setState({loading: true})
     try {
@@ -151,11 +151,38 @@ class EvolutionChain extends React.Component {
   }
 
   render() {
-
     if (this.state.error) {
       return null
     } else if (this.state.data) {
-      return <div>data</div>
+      let chainData = this.state.data.chain;
+      if (chainData["evolves_to"].length === 0) {
+        return <div>It is not known to evolve.</div>
+      } else {
+        if (this.props.name===chainData.species.name) {
+        return <div>{`It evolves to ${chainData["evolves_to"][0].species.name[0].toUpperCase()}${chainData["evolves_to"][0].species.name.slice(1)} `}{chainData["evolves_to"][0]["evolution_details"][0]["gender"] ? "gender"
+      : chainData["evolves_to"][0]["evolution_details"][0]["held_item"] ? "held item"
+      : chainData["evolves_to"][0]["evolution_details"][0]["item"] ? "item"
+      : chainData["evolves_to"][0]["evolution_details"][0]["known_move"] ? "known move"
+      : chainData["evolves_to"][0]["evolution_details"][0]["known_move_type"] ? "known move type"
+      : chainData["evolves_to"][0]["evolution_details"][0]["location"] ? `when leveled up at ${chainData["evolves_to"][0]["evolution_details"][0]["location"].name.split("-")[0][0].toUpperCase()}${chainData["evolves_to"][0]["evolution_details"][0]["location"].name.split("-")[0].slice(1)} ${chainData["evolves_to"][0]["evolution_details"][0]["location"].name.split("-")[1][0].toUpperCase()}${chainData["evolves_to"][0]["evolution_details"][0]["location"].name.split("-")[1].slice(1)}`
+      : chainData["evolves_to"][0]["evolution_details"][0]["min_affection"] ? "min affection"
+      : chainData["evolves_to"][0]["evolution_details"][0]["min_beauty"] ? "min beauty"
+      : chainData["evolves_to"][0]["evolution_details"][0]["min_happiness"] ? "when leveled up with high friendship."
+      : chainData["evolves_to"][0]["evolution_details"][0]["needs_overworld_rain"] ? "needs overworld rain"
+      : chainData["evolves_to"][0]["evolution_details"][0]["party_species"] ? "party species"
+      : chainData["evolves_to"][0]["evolution_details"][0]["party_type"] ? "party type"
+      : chainData["evolves_to"][0]["evolution_details"][0]["relative_physical_stats"] ? "relative physical stats"
+      : chainData["evolves_to"][0]["evolution_details"][0]["time_of_day"] ? "time of day"
+      : chainData["evolves_to"][0]["evolution_details"][0]["trade_species"] ? "trade species"
+      : `at level ${chainData["evolves_to"][0]["evolution_details"][0]["min_level"]}.`}</div>
+        } else if (chainData["evolves_to"][0]["evolves_to"].length===0) {
+          return <div>{`It evolves from ${chainData.species.name[0].toUpperCase()}${chainData.species.name.slice(1)}.`}</div>
+        } else if (chainData["evolves_to"][0]["evolves_to"][0].species.name===this.props.name) {
+          return <div>{`It evolves from ${chainData["evolves_to"][0].species.name[0].toUpperCase()}${chainData["evolves_to"][0].species.name.slice(1)}.`}</div>
+        } else if (chainData["evolves_to"][0]["evolves_to"].length!==0) {
+          return <div>{`It evolves to ${chainData["evolves_to"][0]["evolves_to"][0].species.name[0].toUpperCase()}${chainData["evolves_to"][0]["evolves_to"][0].species.name.slice(1)} `}{typeof chainData["evolves_to"][0]["evolution_details"][0]["min_level"]==="number" ? `at level ${chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["min_level"]}.` : "error"}</div>
+        } 
+      }
     } else {
       return <div>...</div>
     }
