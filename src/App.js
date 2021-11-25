@@ -159,43 +159,45 @@ class EvolutionChain extends React.Component {
         return <div>It is not known to evolve.</div>
       } else {
         if (this.props.name===chainData.species.name) {
-        return <div>{`It evolves to ${chainData["evolves_to"][0].species.name[0].toUpperCase()}${chainData["evolves_to"][0].species.name.slice(1)} `}{chainData["evolves_to"][0]["evolution_details"][0]["gender"] ? "gender"
-      : chainData["evolves_to"][0]["evolution_details"][0]["held_item"] ? "held item"
-      : chainData["evolves_to"][0]["evolution_details"][0]["item"] ? "item"
-      : chainData["evolves_to"][0]["evolution_details"][0]["known_move"] ? `while knowing ${chainData["evolves_to"][0]["evolution_details"][0]["known_move"].name}.`
-      : chainData["evolves_to"][0]["evolution_details"][0]["known_move_type"] ? "known move type"
-      : chainData["evolves_to"][0]["evolution_details"][0]["location"] ? `when leveled up at ${chainData["evolves_to"][0]["evolution_details"][0]["location"].name.split("-")[0][0].toUpperCase()}${chainData["evolves_to"][0]["evolution_details"][0]["location"].name.split("-")[0].slice(1)} ${chainData["evolves_to"][0]["evolution_details"][0]["location"].name.split("-")[1][0].toUpperCase()}${chainData["evolves_to"][0]["evolution_details"][0]["location"].name.split("-")[1].slice(1)}`
-      : chainData["evolves_to"][0]["evolution_details"][0]["min_affection"] ? "min affection"
-      : chainData["evolves_to"][0]["evolution_details"][0]["min_beauty"] ? "min beauty"
-      : chainData["evolves_to"][0]["evolution_details"][0]["min_happiness"] ? "when leveled up with high friendship."
-      : chainData["evolves_to"][0]["evolution_details"][0]["needs_overworld_rain"] ? "needs overworld rain"
-      : chainData["evolves_to"][0]["evolution_details"][0]["party_species"] ? "party species"
-      : chainData["evolves_to"][0]["evolution_details"][0]["party_type"] ? "party type"
-      : chainData["evolves_to"][0]["evolution_details"][0]["relative_physical_stats"] ? "relative physical stats"
-      : chainData["evolves_to"][0]["evolution_details"][0]["time_of_day"] ? "time of day"
-      : chainData["evolves_to"][0]["evolution_details"][0]["trade_species"] ? "trade species"
-      : `at level ${chainData["evolves_to"][0]["evolution_details"][0]["min_level"]}.`}</div>
+          let stageOneChain = chainData["evolves_to"][0]["evolution_details"][0];
+        return <div>{`It evolves to ${chainData["evolves_to"][0].species.name[0].toUpperCase()}${chainData["evolves_to"][0].species.name.slice(1)} `}{stageOneChain["gender"] ? "gender"
+      : stageOneChain["held_item"] ? "held item"
+      : stageOneChain["item"] ? "item"
+      : stageOneChain["known_move"] ? `while knowing ${stageOneChain["known_move"].name}.`
+      : stageOneChain["known_move_type"] ? "known move type"
+      : stageOneChain["location"] ? `when leveled up at ${stageOneChain["location"].name.split("-")[0][0].toUpperCase()}${stageOneChain["location"].name.split("-")[0].slice(1)} ${stageOneChain["location"].name.split("-")[1][0].toUpperCase()}${stageOneChain["location"].name.split("-")[1].slice(1)}.`
+      : stageOneChain["min_affection"] ? "min affection"
+      : stageOneChain["min_beauty"] ? "min beauty"
+      : stageOneChain["min_happiness"] ? "when leveled up with high friendship."
+      : stageOneChain["needs_overworld_rain"] ? "needs overworld rain"
+      : stageOneChain["party_species"] ? "party species"
+      : stageOneChain["party_type"] ? "party type"
+      : stageOneChain["relative_physical_stats"] ? "relative physical stats"
+      : stageOneChain["time_of_day"] ? "time of day"
+      : stageOneChain["trade_species"] ? "trade species"
+      : `at level ${stageOneChain["min_level"]}.`}</div>
         } else if (chainData["evolves_to"][0]["evolves_to"].length===0) {
           return <div>{`It evolves from ${chainData.species.name[0].toUpperCase()}${chainData.species.name.slice(1)}.`}</div>
         } else if (chainData["evolves_to"][0]["evolves_to"][0].species.name===this.props.name) {
           return <div>{`It evolves from ${chainData["evolves_to"][0].species.name[0].toUpperCase()}${chainData["evolves_to"][0].species.name.slice(1)}.`}</div>
         } else if (chainData["evolves_to"][0]["evolves_to"].length!==0) {
-          return <div>{`It evolves to ${chainData["evolves_to"][0]["evolves_to"][0].species.name[0].toUpperCase()}${chainData["evolves_to"][0]["evolves_to"][0].species.name.slice(1)} `}{chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["gender"] ? "gender"
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["held_item"] ? "held item"
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["item"] ? "item"
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["known_move"] ? `while knowing ${chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["known_move"].name}.`
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["known_move_type"] ? "known move type"
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["location"] ? `when leveled up at ${chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["location"].name.split("-")[0][0].toUpperCase()}${chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["location"].name.split("-")[0].slice(1)} ${chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["location"].name.split("-")[1][0].toUpperCase()}${chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["location"].name.split("-")[1].slice(1)}`
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["min_affection"] ? "min affection"
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["min_beauty"] ? "min beauty"
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["min_happiness"] ? "when leveled up with high friendship."
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["needs_overworld_rain"] ? "needs overworld rain"
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["party_species"] ? "party species"
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["party_type"] ? "party type"
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["relative_physical_stats"] ? "relative physical stats"
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["time_of_day"] ? "time of day"
-          : chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["trade_species"] ? "trade species"
-          : `at level ${chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0]["min_level"]}.`}</div>
+          let stageTwoChain = chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0];
+          return <div>{`It evolves to ${chainData["evolves_to"][0]["evolves_to"][0].species.name[0].toUpperCase()}${chainData["evolves_to"][0]["evolves_to"][0].species.name.slice(1)} `}{stageTwoChain["gender"] ? "gender"
+          : stageTwoChain["held_item"] ? "held item"
+          : stageTwoChain["item"] ? "item"
+          : stageTwoChain["known_move"] ? `while knowing ${stageTwoChain["known_move"].name}.`
+          : stageTwoChain["known_move_type"] ? "known move type"
+          : stageTwoChain["location"] ? `when leveled up at ${stageTwoChain["location"].name.split("-")[0][0].toUpperCase()}${stageTwoChain["location"].name.split("-")[0].slice(1)} ${stageTwoChain["location"].name.split("-")[1][0].toUpperCase()}${stageTwoChain["location"].name.split("-")[1].slice(1)}.`
+          : stageTwoChain["min_affection"] ? "min affection"
+          : stageTwoChain["min_beauty"] ? "min beauty"
+          : stageTwoChain["min_happiness"] ? "when leveled up with high friendship."
+          : stageTwoChain["needs_overworld_rain"] ? "needs overworld rain"
+          : stageTwoChain["party_species"] ? "party species"
+          : stageTwoChain["party_type"] ? "party type"
+          : stageTwoChain["relative_physical_stats"] ? "relative physical stats"
+          : stageTwoChain["time_of_day"] ? "time of day"
+          : stageTwoChain["trade_species"] ? "trade species"
+          : `at level ${stageTwoChain["min_level"]}.`}</div>
         } 
       }
     } else {
