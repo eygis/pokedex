@@ -167,7 +167,7 @@ class EvolutionChain extends React.Component {
       : stageOneChain["known_move_type"] ? "known move type"
       : stageOneChain["location"] ? `when leveled up at ${stageOneChain["location"].name.split("-")[0][0].toUpperCase()}${stageOneChain["location"].name.split("-")[0].slice(1)} ${stageOneChain["location"].name.split("-")[1][0].toUpperCase()}${stageOneChain["location"].name.split("-")[1].slice(1)}.`
       : stageOneChain["min_affection"] ? "min affection"
-      : stageOneChain["min_beauty"] ? "min beauty"
+      : stageOneChain["min_beauty"] ? "when leveled up with high beauty."
       : stageOneChain["min_happiness"] ? "when leveled up with high friendship."
       : stageOneChain["needs_overworld_rain"] ? "needs overworld rain"
       : stageOneChain["party_species"] ? "party species"
@@ -189,7 +189,7 @@ class EvolutionChain extends React.Component {
           : stageTwoChain["known_move_type"] ? "known move type"
           : stageTwoChain["location"] ? `when leveled up at ${stageTwoChain["location"].name.split("-")[0][0].toUpperCase()}${stageTwoChain["location"].name.split("-")[0].slice(1)} ${stageTwoChain["location"].name.split("-")[1][0].toUpperCase()}${stageTwoChain["location"].name.split("-")[1].slice(1)}.`
           : stageTwoChain["min_affection"] ? "min affection"
-          : stageTwoChain["min_beauty"] ? "min beauty"
+          : stageTwoChain["min_beauty"] ? "when leveled up with high beauty."
           : stageTwoChain["min_happiness"] ? "when leveled up with high friendship."
           : stageTwoChain["needs_overworld_rain"] ? "needs overworld rain"
           : stageTwoChain["party_species"] ? "party species"
