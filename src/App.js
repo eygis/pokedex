@@ -213,8 +213,8 @@ class EvolutionChain extends React.Component {
         } 
       }
     } catch (err) {
-      return null
       console.log(err)
+      return null
     }
     } else {
       return <div>...</div>
