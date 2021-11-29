@@ -170,6 +170,9 @@ class EvolutionChain extends React.Component {
       } else {
         if (this.props.name===chainData.species.name) {
           let stageOneChain = chainData["evolves_to"][0]["evolution_details"][0];
+          if (chainData["evolves_to"].length>=2) {
+            return <div>branching evolution</div>
+          } else {
         return <div>{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} `}{stageOneChain["gender"] ? "gender"
       : stageOneChain["held_item"] ? stageOneChain["trigger"].name === "level-up" ? stageOneChain["time_of_day"] ? `when leveled up while holding the ${this.splitAndPunctuate(stageOneChain["held_item"].name)} item during the ${stageOneChain["time_of_day"]}.` : `when leveled up while holding the ${this.splitAndPunctuate(stageOneChain["held_item"].name)} item.` : `when traded while holding the ${this.splitAndPunctuate(stageOneChain["held_item"].name)} item.`
       : stageOneChain["item"] ? `when exposed to the ${this.splitAndPunctuate(stageOneChain["item"].name)} item.`
@@ -187,12 +190,16 @@ class EvolutionChain extends React.Component {
       : stageOneChain["trade_species"] ? `when traded for a ${this.splitAndPunctuate(stageOneChain["trade_species"].name)}.`
       : stageOneChain["trigger"].name === "trade" ? "when traded."
       : `at level ${stageOneChain["min_level"]}.`}</div>
+        }
         } else if (chainData["evolves_to"][0]["evolves_to"].length===0) {
           return <div>{`It evolves from ${this.splitAndPunctuate(chainData.species.name)}.`}</div>
         } else if (chainData["evolves_to"][0]["evolves_to"][0].species.name===this.props.name) {
           return <div>{`It evolves from ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)}.`}</div>
         } else if (chainData["evolves_to"][0]["evolves_to"].length!==0) {
           let stageTwoChain = chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0];
+          if (chainData["evolves_to"][0]["evolves_to"].length>=2) {
+            return <div>branching evolution</div>
+          } else {
           return <div>{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0]["evolves_to"][0].species.name)} `}{stageTwoChain["gender"] ? "gender"
           : stageTwoChain["held_item"] ? stageTwoChain["trigger"].name === "level-up" ? stageTwoChain["time_of_day"] ? `when leveled up while holding the ${this.splitAndPunctuate(stageTwoChain["held_item"].name)} item during the ${stageTwoChain["time_of_day"]}.` : `when leveled up while holding the ${this.splitAndPunctuate(stageTwoChain["held_item"].name)} item.` : `when traded while holding the ${this.splitAndPunctuate(stageTwoChain["held_item"].name)} item.`
           : stageTwoChain["item"] ? `when exposed to the ${this.splitAndPunctuate(stageTwoChain["item"].name)} item.`
@@ -210,6 +217,7 @@ class EvolutionChain extends React.Component {
           : stageTwoChain["trade_species"] ? `when traded for a ${this.splitAndPunctuate(stageTwoChain["trade_species"].name)}.`
           : stageTwoChain["trigger"].name === "trade" ? "when traded."
           : `at level ${stageTwoChain["min_level"]}.`}</div>
+          }
         } 
       }
     } catch (err) {
