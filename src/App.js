@@ -84,7 +84,7 @@ let NameAndPicture = (data) => {
   return (
     <div id="display1">
       <h1 id="pokemonName">{name}</h1>
-      <span id="information" className="info">
+      <div id="information" className="info">
         {name} is {types[0][0] === "a" ||
         types[0][0] === "e" ||
         types[0][0] === "i" ||
@@ -92,7 +92,7 @@ let NameAndPicture = (data) => {
         types[0][0] === "u" ? `an ${joinedTypes}` : `a ${joinedTypes} `}
         <GenFunction species={data.data.species.url} />
         <img src={image} alt={name} id="pokePicture" />
-      </span>
+      </div>
     </div>
   )
 }
@@ -127,9 +127,9 @@ class GenFunction extends React.Component {
     
     return (
     <div id="display2">
-    <span>
+    <div>
     {this.splitAndPunctuate(this.state.data.name)} first appeared in Generation {this.state.data.generation.name.split("-")[1].toUpperCase()}.
-    </span>
+    </div>
     <EvolutionChain name={this.state.data.name} chainUrl={this.state.data["evolution_chain"].url} />
     </div>
   )
