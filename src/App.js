@@ -166,14 +166,14 @@ class EvolutionChain extends React.Component {
       try {
       let chainData = this.state.data.chain;
       if (chainData["evolves_to"].length === 0) {
-        return <div>It is not known to evolve.</div>
+        return <div id="display3">It is not known to evolve.</div>
       } else {
         if (this.props.name===chainData.species.name) {
           let stageOneChain = chainData["evolves_to"][0]["evolution_details"][0];
           if (chainData["evolves_to"].length>=2) {
-            return <div>branching evolution</div>
+            return <div id="display3">branching evolution</div>
           } else {
-        return <div>{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} `}{stageOneChain["gender"] ? "gender"
+        return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} `}{stageOneChain["gender"] ? "gender"
       : stageOneChain["held_item"] ? stageOneChain["trigger"].name === "level-up" ? stageOneChain["time_of_day"] ? `when leveled up while holding the ${this.splitAndPunctuate(stageOneChain["held_item"].name)} item during the ${stageOneChain["time_of_day"]}.` : `when leveled up while holding the ${this.splitAndPunctuate(stageOneChain["held_item"].name)} item.` : `when traded while holding the ${this.splitAndPunctuate(stageOneChain["held_item"].name)} item.`
       : stageOneChain["item"] ? `when exposed to the ${this.splitAndPunctuate(stageOneChain["item"].name)} item.`
       : stageOneChain["known_move"] ? `while knowing ${this.splitAndPunctuate(stageOneChain["known_move"].name)}.`
@@ -192,15 +192,15 @@ class EvolutionChain extends React.Component {
       : `at level ${stageOneChain["min_level"]}.`}</div>
         }
         } else if (chainData["evolves_to"][0]["evolves_to"].length===0) {
-          return <div>{`It evolves from ${this.splitAndPunctuate(chainData.species.name)}.`}</div>
+          return <div id="display3">{`It evolves from ${this.splitAndPunctuate(chainData.species.name)}.`}</div>
         } else if (chainData["evolves_to"][0]["evolves_to"][0].species.name===this.props.name) {
-          return <div>{`It evolves from ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)}.`}</div>
+          return <div id="display3">{`It evolves from ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)}.`}</div>
         } else if (chainData["evolves_to"][0]["evolves_to"].length!==0) {
           let stageTwoChain = chainData["evolves_to"][0]["evolves_to"][0]["evolution_details"][0];
           if (chainData["evolves_to"][0]["evolves_to"].length>=2) {
-            return <div>branching evolution</div>
+            return <div id="display3">branching evolution</div>
           } else {
-          return <div>{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0]["evolves_to"][0].species.name)} `}{stageTwoChain["gender"] ? "gender"
+          return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0]["evolves_to"][0].species.name)} `}{stageTwoChain["gender"] ? "gender"
           : stageTwoChain["held_item"] ? stageTwoChain["trigger"].name === "level-up" ? stageTwoChain["time_of_day"] ? `when leveled up while holding the ${this.splitAndPunctuate(stageTwoChain["held_item"].name)} item during the ${stageTwoChain["time_of_day"]}.` : `when leveled up while holding the ${this.splitAndPunctuate(stageTwoChain["held_item"].name)} item.` : `when traded while holding the ${this.splitAndPunctuate(stageTwoChain["held_item"].name)} item.`
           : stageTwoChain["item"] ? `when exposed to the ${this.splitAndPunctuate(stageTwoChain["item"].name)} item.`
           : stageTwoChain["known_move"] ? `while knowing ${this.splitAndPunctuate(stageTwoChain["known_move"].name)}.`
@@ -225,7 +225,7 @@ class EvolutionChain extends React.Component {
       return null
     }
     } else {
-      return <div>...</div>
+      return <div id="display3">...</div>
     }
   }
 
