@@ -91,8 +91,9 @@ let NameAndPicture = (data) => {
         types[0][0] === "o" ||
         types[0][0] === "u" ? `an ${joinedTypes}` : `a ${joinedTypes} `}
         <GenFunction species={data.data.species.url} />
+        </div>
         <img src={image} alt={name} id="pokePicture" />
-      </div>
+      
     </div>
   )
 }

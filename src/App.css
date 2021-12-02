@@ -29,7 +29,7 @@ body {
 
 #content {
   margin-top: 175px;
-  order: solid green;
+  border: solid green;
   text-align: center;
 }
 
@@ -50,4 +50,9 @@ body {
 
 #information {
   display: inline;
+  border: solid purple;
+}
+
+#display1 {
+  border: solid red;
 }
