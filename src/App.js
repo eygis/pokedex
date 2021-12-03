@@ -82,8 +82,10 @@ let NameAndPicture = (data) => {
   const joinedTypes = types.join("/") + " type Pokémon."
   const image = data.data.sprites.other["official-artwork"].front_default;
   return (
-    <div id="display1">
+    <div id="nameDiv">
       <h1 id="pokemonName">{name}</h1>
+    <div id="display1">
+      
       <div id="information" className="info">
         {name} is {types[0][0] === "a" ||
         types[0][0] === "e" ||
@@ -94,6 +96,7 @@ let NameAndPicture = (data) => {
         </div>
         <img src={image} alt={name} id="pokePicture" />
       
+    </div>
     </div>
   )
 }

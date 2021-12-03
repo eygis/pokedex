@@ -29,7 +29,7 @@ body {
 
 #content {
   margin-top: 175px;
-  border: solid green;
+  order: solid green;
   text-align: center;
 }
 
@@ -37,6 +37,7 @@ body {
   width: 15%;
   text-align: center;
   border-right: none;
+  margin-bottom: 10px;
 }
 
 #searchButton {
@@ -45,14 +46,23 @@ body {
 
 #pokePicture {
   display: block;
-  margin: auto;
+  order: solid yellow;
+  max-width: 350px;
 }
 
 #information {
-  display: inline;
-  border: solid purple;
+  order: solid purple;
+  height: 100%;
+  margin: auto 0 auto 0;
 }
 
 #display1 {
-  border: solid red;
+  order: solid red;
+  display: flex;
+  justify-content: space-around;
+  margin-top: -20px;
+}
+
+#pokemonName {
+  display: inline;
 }
