@@ -253,7 +253,53 @@ class EvolutionChain extends React.Component {
             })
           } else {
             if (chainData["evolves_to"][1]) {
-            return <div>double branch</div>
+
+              if (chainData["evolves_to"][0].species.name===this.props.name) {
+                //first branch second stage
+                return <div>{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0]["evolves_to"][0].species.name)} `}{stageTwoChain["gender"] ? stageTwoChain["gender"] === 1 ? stageTwoChain["item"] ? `if female and exposed to the ${this.splitAndPunctuate(stageTwoChain["item"].name)} item.` : `when female at level ${stageTwoChain["min_level"]}.` : stageTwoChain["item"] ? `if male and exposed to the ${this.splitAndPunctuate(stageTwoChain["item"].name)} item.` : `when male at level ${stageTwoChain["min_level"]}.`
+              : stageTwoChain["held_item"] ? stageTwoChain["trigger"].name === "level-up" ? stageTwoChain["time_of_day"] ? `when leveled up while holding the ${this.splitAndPunctuate(stageTwoChain["held_item"].name)} item during the ${stageTwoChain["time_of_day"]}.` : `when leveled up while holding the ${this.splitAndPunctuate(stageTwoChain["held_item"].name)} item.` : `when traded while holding the ${this.splitAndPunctuate(stageTwoChain["held_item"].name)} item.`
+              : stageTwoChain["item"] ? `when exposed to the ${this.splitAndPunctuate(stageTwoChain["item"].name)} item.`
+              : stageTwoChain["known_move"] ? `while knowing ${this.splitAndPunctuate(stageTwoChain["known_move"].name)}.`
+              : stageTwoChain["known_move_type"] ? stageTwoChain["min_affection"] ? `when leveled up while knowing any ${this.splitAndPunctuate(stageTwoChain["known_move_type"].name)} type move and having at least ${stageTwoChain["min_affection"]} levels of affection. ` : `when leveled up while having at least ${stageTwoChain["min_affection"]} levels of affection. `
+              : stageTwoChain["location"] ? `when leveled up at ${this.splitAndPunctuate(stageTwoChain["location"].name)}.`
+              : stageTwoChain["min_affection"] ? "min affection"
+              : stageTwoChain["min_beauty"] ? "when leveled up with high beauty."
+              : stageTwoChain["min_happiness"] ? stageTwoChain["time_of_day"] ? `when leveled up during the ${stageTwoChain["time_of_day"]} with high friendship.` : `when leveled up with high friendship.`
+              : stageTwoChain["needs_overworld_rain"] ? `at level ${stageTwoChain["min_level"]} with rain for fog present in the overworld.`
+              : stageTwoChain["party_species"] ? stageTwoChain["min_level"] ? `at level ${stageTwoChain["min_level"]} with a ${this.splitAndPunctuate(stageTwoChain["party_species"].name)} in the party.` : `while leveled up with a ${this.splitAndPunctuate(stageTwoChain["party_species"].name)} in the party.`
+              : stageTwoChain["party_type"] ? stageTwoChain["min_level"] ? `at level ${stageTwoChain["min_level"]} while a ${this.splitAndPunctuate(stageTwoChain["party_type"].name)} type Pokémon is in the party.` : `while a ${this.splitAndPunctuate(stageTwoChain["party_type"].name)} type Pokémon is in the party.`
+              : stageTwoChain["relative_physical_stats"] !== null ? stageTwoChain["relative_physical_stats"] === 1 ? `when its Attack value is higher than its Defense value.` : stageTwoChain["relative_physical_stats"] === -1 ? `when its Defense value is higher than its Attack value.` : `when its Attack and Defense values are equal.`
+              : stageTwoChain["time_of_day"] ? "time of day"
+              : stageTwoChain["trade_species"] ? `when traded for a ${this.splitAndPunctuate(stageTwoChain["trade_species"].name)}.`
+              : stageTwoChain["trigger"].name === "trade" ? "when traded."
+              : `at level ${stageTwoChain["min_level"]}.`}</div>
+              }
+              else if (chainData["evolves_to"][1].species.name===this.props.name) {
+                //second branch second stage
+                let stageTwoBranch = chainData["evolves_to"][1]["evolves_to"][0]["evolution_details"][0];
+                return <div>{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][1]["evolves_to"][0].species.name)} `}{stageTwoBranch["gender"] ? stageTwoBranch["gender"] === 1 ? stageTwoBranch["item"] ? `if female and exposed to the ${this.splitAndPunctuate(stageTwoBranch["item"].name)} item.` : `when female at level ${stageTwoBranch["min_level"]}.` : stageTwoBranch["item"] ? `if male and exposed to the ${this.splitAndPunctuate(stageTwoBranch["item"].name)} item.` : `when male at level ${stageTwoBranch["min_level"]}.`
+              : stageTwoBranch["held_item"] ? stageTwoBranch["trigger"].name === "level-up" ? stageTwoBranch["time_of_day"] ? `when leveled up while holding the ${this.splitAndPunctuate(stageTwoBranch["held_item"].name)} item during the ${stageTwoBranch["time_of_day"]}.` : `when leveled up while holding the ${this.splitAndPunctuate(stageTwoBranch["held_item"].name)} item.` : `when traded while holding the ${this.splitAndPunctuate(stageTwoBranch["held_item"].name)} item.`
+              : stageTwoBranch["item"] ? `when exposed to the ${this.splitAndPunctuate(stageTwoBranch["item"].name)} item.`
+              : stageTwoBranch["known_move"] ? `while knowing ${this.splitAndPunctuate(stageTwoBranch["known_move"].name)}.`
+              : stageTwoBranch["known_move_type"] ? stageTwoBranch["min_affection"] ? `when leveled up while knowing any ${this.splitAndPunctuate(stageTwoBranch["known_move_type"].name)} type move and having at least ${stageTwoBranch["min_affection"]} levels of affection. ` : `when leveled up while having at least ${stageTwoBranch["min_affection"]} levels of affection. `
+              : stageTwoBranch["location"] ? `when leveled up at ${this.splitAndPunctuate(stageTwoBranch["location"].name)}.`
+              : stageTwoBranch["min_affection"] ? "min affection"
+              : stageTwoBranch["min_beauty"] ? "when leveled up with high beauty."
+              : stageTwoBranch["min_happiness"] ? stageTwoBranch["time_of_day"] ? `when leveled up during the ${stageTwoBranch["time_of_day"]} with high friendship.` : `when leveled up with high friendship.`
+              : stageTwoBranch["needs_overworld_rain"] ? `at level ${stageTwoBranch["min_level"]} with rain for fog present in the overworld.`
+              : stageTwoBranch["party_species"] ? stageTwoBranch["min_level"] ? `at level ${stageTwoBranch["min_level"]} with a ${this.splitAndPunctuate(stageTwoBranch["party_species"].name)} in the party.` : `while leveled up with a ${this.splitAndPunctuate(stageTwoBranch["party_species"].name)} in the party.`
+              : stageTwoBranch["party_type"] ? stageTwoBranch["min_level"] ? `at level ${stageTwoBranch["min_level"]} while a ${this.splitAndPunctuate(stageTwoBranch["party_type"].name)} type Pokémon is in the party.` : `while a ${this.splitAndPunctuate(stageTwoBranch["party_type"].name)} type Pokémon is in the party.`
+              : stageTwoBranch["relative_physical_stats"] !== null ? stageTwoBranch["relative_physical_stats"] === 1 ? `when its Attack value is higher than its Defense value.` : stageTwoBranch["relative_physical_stats"] === -1 ? `when its Defense value is higher than its Attack value.` : `when its Attack and Defense values are equal.`
+              : stageTwoBranch["time_of_day"] ? "time of day"
+              : stageTwoBranch["trade_species"] ? `when traded for a ${this.splitAndPunctuate(stageTwoBranch["trade_species"].name)}.`
+              : stageTwoBranch["trigger"].name === "trade" ? "when traded."
+              : `at level ${stageTwoBranch["min_level"]}.`}</div>
+              }
+              else if (chainData["evolves_to"][1]["evolves_to"][0].species.name===this.props.name) {
+                //second branch third stage
+                return <div id="display3">{`It evolves from ${this.splitAndPunctuate(chainData["evolves_to"][1].species.name)}.`}</div>
+              }
+              return <div>unresolved double branch</div>
           }
           return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0]["evolves_to"][0].species.name)} `}{stageTwoChain["gender"] ? stageTwoChain["gender"] === 1 ? stageTwoChain["item"] ? `if female and exposed to the ${this.splitAndPunctuate(stageTwoChain["item"].name)} item.` : `when female at level ${stageTwoChain["min_level"]}.` : stageTwoChain["item"] ? `if male and exposed to the ${this.splitAndPunctuate(stageTwoChain["item"].name)} item.` : `when male at level ${stageTwoChain["min_level"]}.`
           : stageTwoChain["held_item"] ? stageTwoChain["trigger"].name === "level-up" ? stageTwoChain["time_of_day"] ? `when leveled up while holding the ${this.splitAndPunctuate(stageTwoChain["held_item"].name)} item during the ${stageTwoChain["time_of_day"]}.` : `when leveled up while holding the ${this.splitAndPunctuate(stageTwoChain["held_item"].name)} item.` : `when traded while holding the ${this.splitAndPunctuate(stageTwoChain["held_item"].name)} item.`
