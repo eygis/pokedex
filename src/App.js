@@ -177,6 +177,7 @@ class EvolutionChain extends React.Component {
           let stageOneChain = chainData["evolves_to"][0]["evolution_details"][0];
           if (chainData["evolves_to"].length>=2) {
             //branching first stage
+            if (!stageOneChain) return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)}.`}</div>
             return chainData["evolves_to"].map((branch) => {
               let branchChain = branch["evolution_details"][0]
               return <div id="display3">{`It evolves to ${this.splitAndPunctuate(branch.species.name)} `}{branchChain["gender"] ? branchChain["gender"] === 1 ? branchChain["item"] ? `if female and exposed to the ${this.splitAndPunctuate(branchChain["item"].name)} item.` : `if female at level ${branchChain["min_level"]}.` : branchChain["item"] ? `if male and exposed to the ${this.splitAndPunctuate(branchChain["item"].name)} item.` : `if male at level ${branchChain["min_level"]}.`
@@ -199,6 +200,7 @@ class EvolutionChain extends React.Component {
             })
           } else {
             //evolving first stage
+            if (!stageOneChain) return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)}.`}</div>
         return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} `}{stageOneChain["gender"] ? stageOneChain["gender"] === 1 ? stageOneChain["item"] ? `if female and exposed to the ${this.splitAndPunctuate(stageOneChain["item"].name)} item.` : `if female at level ${stageOneChain["min_level"]}.` : stageOneChain["item"] ? `if male and exposed to the ${this.splitAndPunctuate(stageOneChain["item"].name)} item.` : `if male at level ${stageOneChain["min_level"]}.`
       : stageOneChain["held_item"] ? stageOneChain["trigger"].name === "level-up" ? stageOneChain["time_of_day"] ? `when leveled up while holding the ${this.splitAndPunctuate(stageOneChain["held_item"].name)} item during the ${stageOneChain["time_of_day"]}.` : `when leveled up while holding the ${this.splitAndPunctuate(stageOneChain["held_item"].name)} item.` : `when traded while holding the ${this.splitAndPunctuate(stageOneChain["held_item"].name)} item.`
       : stageOneChain["item"] ? `when exposed to the ${this.splitAndPunctuate(stageOneChain["item"].name)} item.`
