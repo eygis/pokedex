@@ -1,1 +1,1 @@
-pokedex app create using create-react-app
+pokedex app created using create-react-app
