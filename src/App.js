@@ -89,7 +89,7 @@ let ContentDisplay = (data) => {
       <div id="information" className="info">
         <div id="tabBar">
           <div className="tab" onClick={()=>setDisplay(<GenFunction priorData={data} species={data.data.species.url} />)}>Basic Information</div>
-          <div className="tab" onClick={()=>setDisplay("HOOO")}>Move List</div>
+          <div className="tab" onClick={()=>setDisplay("HOOO")}>Stats & Type Effectiveness</div>
         </div>
         {currentDisplay}
         </div>
