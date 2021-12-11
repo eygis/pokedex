@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import {useState} from 'react';
 
 class App extends React.Component {
     state = {
@@ -68,7 +69,7 @@ class SearchReturn extends React.Component {
     } else if (this.state.loading) {
       return "Loading..."
     } else if (this.state.data) {
-      return <NameAndPicture data={this.state.data} />
+      return <ContentDisplay data={this.state.data} />
     } else {
       return null
     }
@@ -76,27 +77,25 @@ class SearchReturn extends React.Component {
 
 }
 
-let NameAndPicture = (data) => {
+let ContentDisplay = (data) => {
   const name = `${data.data.name[0].toUpperCase()}${data.data.name.slice(1)}`;
-  const types = data.data.types.map(type => `${type.type.name[0].toUpperCase()}${type.type.name.slice(1)}`);
-  const joinedTypes = types.join("/") + " type Pokémon."
   const image = data.data.sprites.other["official-artwork"].front_default;
+  const [currentDisplay, setDisplay] = useState(<GenFunction priorData={data} species={data.data.species.url} />)
   return (
     <div id="nameDiv">
       <h1 id="pokemonName">{name}</h1>
     <div id="display1">
       
       <div id="information" className="info">
-        {name} is {types[0][0] === "a" ||
-        types[0][0] === "e" ||
-        types[0][0] === "i" ||
-        types[0][0] === "o" ||
-        types[0][0] === "u" ? `an ${joinedTypes}` : `a ${joinedTypes} `}
-        <GenFunction species={data.data.species.url} />
+        <div id="tabBar">
+          <div className="tab" onClick={()=>setDisplay(<GenFunction priorData={data} species={data.data.species.url} />)}>Basic Information</div>
+          <div className="tab" onClick={()=>setDisplay("HOOO")}>Move List</div>
+        </div>
+        {currentDisplay}
         </div>
         <img src={image} alt={name} id="pokePicture" />
-      
-    </div>
+      </div>
+    
     </div>
   )
 }
@@ -124,6 +123,10 @@ class GenFunction extends React.Component {
   }
 
   render() {
+  const priorData = this.props.priorData;
+  const name = `${priorData.data.name[0].toUpperCase()}${priorData.data.name.slice(1)}`;
+  const types = priorData.data.types.map(type => `${type.type.name[0].toUpperCase()}${type.type.name.slice(1)}`);
+  const joinedTypes = types.join("/") + " type Pokémon."
 
   if (this.state.error) {
     return null
@@ -131,6 +134,12 @@ class GenFunction extends React.Component {
     
     return (
     <div id="display2">
+    <div>{name} is {types[0][0] === "A" ||
+        types[0][0] === "E" ||
+        types[0][0] === "I" ||
+        types[0][0] === "O" ||
+        types[0][0] === "U" ? `an ${joinedTypes}` : `a ${joinedTypes} `}
+        </div>
     <div>
     {this.splitAndPunctuate(this.state.data.name)} first appeared in Generation {this.state.data.generation.name.split("-")[1].toUpperCase()}.
     </div>

@@ -61,6 +61,22 @@ body {
   margin-top: -20px;
 }
 
+#display2 {
+  order: solid green;
+}
+
 #pokemonName {
   display: inline;
+}
+
+#tabBar {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.tab {
+  margin: 5px;
+  padding: 5px;
+  border: solid #2a75bb;
+  border-radius: 15px;
 }
