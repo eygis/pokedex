@@ -1,0 +1,254 @@
+{
+    "normal": {
+        "weak": [
+            "fighting"
+        ],
+        "resistant": [],
+        "immune": [
+            "ghost"
+        ]
+    },
+    "fighting": {
+        "weak": [
+            "flying",
+            "psychic",
+            "fairy"
+        ],
+        "resistant": [
+            "bug",
+            "dark",
+            "rock"
+        ],
+        "immune": []
+    },
+    "flying": {
+        "weak": [
+            "electric",
+            "ice",
+            "rock"
+        ],
+        "resistant": [
+            "bug",
+            "fighting",
+            "grass"
+        ],
+        "immune": [
+            "ground"
+        ]
+    },
+    "poison": {
+        "weak": [
+            "ground",
+            "psychic"
+        ],
+        "resistant": [
+            "fighting",
+            "poison",
+            "bug",
+            "grass",
+            "fairy"
+        ],
+        "immune": []
+    },
+    "ground": {
+        "weak": [
+            "grass",
+            "ice",
+            "water"
+        ],
+        "resistant": [
+            "poison",
+            "rock"
+        ],
+        "immune": [
+            "electric"
+        ]
+    },
+    "rock": {
+        "weak": [
+            "fighting",
+            "grass",
+            "ground",
+            "steel",
+            "water"
+        ],
+        "resistant": [
+            "fire",
+            "flying",
+            "normal",
+            "poison"
+        ],
+        "immune": []
+    },
+    "bug": {
+        "weak": [
+            "fire",
+            "flying",
+            "rock"
+        ],
+        "resistant": [
+            "fighting",
+            "grass",
+            "ground"
+        ],
+        "immune": []
+    },
+    "ghost": {
+        "weak": [
+            "dark",
+            "ghost"
+        ],
+        "resistant": [
+            "bug",
+            "poison"
+        ],
+        "immune": [
+            "normal",
+            "fighting"
+        ]
+    },
+    "steel": {
+        "weak": [
+            "fighting",
+            "fire",
+            "ground"
+        ],
+        "resistant": [
+            "bug",
+            "dragon",
+            "fairy",
+            "flying",
+            "grass",
+            "ice",
+            "normal",
+            "psychic",
+            "rock",
+            "steel"
+        ],
+        "immune": [
+            "poison"
+        ]
+    },
+    "fire": {
+        "weak": [
+            "ground",
+            "rock",
+            "water"
+        ],
+        "resistant": [
+            "bug",
+            "fairy",
+            "fire",
+            "grass",
+            "ice",
+            "steel"
+        ],
+        "immune": []
+    },
+    "water": {
+        "weak": [
+            "electric",
+            "grass"
+        ],
+        "resistant": [
+            "fire",
+            "ice",
+            "steel",
+            "water"
+        ],
+        "immune": []
+    },
+    "grass": {
+        "weak": [
+            "bug",
+            "fire",
+            "flying",
+            "ice",
+            "poison"
+        ],
+     "resistant": [
+         "electric",
+         "grass",
+         "ground",
+         "water"
+     ],
+        "immune": []
+    },
+    "electric": {
+        "weak": [
+            "ground"
+        ],
+        "resistant": [
+            "electric",
+            "flying",
+            "steel"
+        ],
+        "immune": []
+    },
+    "psychic": {
+        "weak": [
+            "bug",
+            "dark",
+            "ghost"
+        ],
+        "resistant": [
+            "fighting",
+            "psychic"
+        ],
+        "immune": []
+    },
+    "ice": {
+        "weak": [
+            "fighting",
+            "fire",
+            "rock",
+            "steel"
+        ],
+        "resistant": [
+            "ice"
+        ],
+        "immune": []
+    },
+    "dragon": {
+        "weak": [
+            "dragon",
+            "fairy",
+            "ice"
+        ],
+        "resistant": [
+            "electric",
+            "fire",
+            "grass",
+            "water"
+        ],
+        "immune": []
+    },
+    "dark": {
+        "weak": [
+            "bug",
+            "fairy",
+            "fighting"
+        ],
+        "resistant": [
+            "dark",
+            "ghost"
+        ],
+        "immune": [
+            "psychic"
+        ]
+    },
+    "fairy": {
+        "weak": [
+            "poison",
+            "steel"
+        ],
+        "resistant": [
+            "bug",
+            "dark",
+            "fighting"
+        ],
+        "immune": [
+            "dragon"
+        ]
+    }
+}

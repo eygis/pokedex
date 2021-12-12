@@ -1,6 +1,8 @@
 import './App.css';
 import React from 'react';
 import {useState} from 'react';
+import defense_type_effectiveness from './defense_type_effectiveness.json'
+let typesList = defense_type_effectiveness;
 
 class App extends React.Component {
     state = {
@@ -89,7 +91,7 @@ let ContentDisplay = (data) => {
       <div id="information" className="info">
         <div id="tabBar">
           <div className="tab" onClick={()=>setDisplay(<GenFunction priorData={data} species={data.data.species.url} />)}>Basic Information</div>
-          <div className="tab" onClick={()=>setDisplay("HOOO")}>Stats & Type Effectiveness</div>
+          <div className="tab" onClick={()=>setDisplay(stats(data))}>Stats & Type Effectiveness</div>
         </div>
         {currentDisplay}
         </div>
@@ -150,6 +152,70 @@ class GenFunction extends React.Component {
     return "..."
   }
 }
+}
+
+let stats = (data) => {
+  
+  let capitalize = (target) => {
+    let fixed = target[0].toUpperCase() + target.slice(1)
+    return fixed
+  }
+ 
+  let pokemonTypes = data.data.types.map((type)=>type.type.name)
+  let weaknessCalc = (targetTypes) => {
+    let weaknesses  = {}
+
+    targetTypes.forEach((type) => {
+      let target = typesList[type];
+      let weak = target.weak;
+      let resistant = target.resistant;
+      let immune = target.immune;
+      weak.forEach((type)=>{
+        if (weaknesses.hasOwnProperty(type)) {
+          weaknesses[type] = weaknesses[type] * 2;
+          if (weaknesses[type]===1) {
+            delete weaknesses[type]
+          }
+        } else {
+          weaknesses[type] = 2;
+        }
+      })
+      resistant.forEach((type)=>{
+        if (weaknesses.hasOwnProperty(type)) {
+          weaknesses[type] = weaknesses[type] * .5;
+          if (weaknesses[type]===1) {
+            delete weaknesses[type]
+          }
+        } else {
+          weaknesses[type] = .5;
+        }
+      })
+      immune.forEach((type)=>{
+        if (weaknesses.hasOwnProperty(type)) {
+          weaknesses[type] = weaknesses[type] * 0;
+          if (weaknesses[type]===1) {
+            delete weaknesses[type]
+          }
+        } else {
+          weaknesses[type] = 0;
+        }
+      })
+    })
+    
+    return weaknesses
+  }
+    let entries = Object.entries(weaknessCalc(pokemonTypes))
+    let map = entries.map((element) => {
+      return <div>{`${capitalize(element[0])}-type damage is ${element[1]}x. `}</div>
+    })
+    return (
+     <div>
+       {map}
+       <p>All other damage types are 1x.</p>
+       </div>
+      
+    )
+  
 }
 
 class EvolutionChain extends React.Component {
