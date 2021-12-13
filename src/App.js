@@ -157,8 +157,8 @@ class GenFunction extends React.Component {
 let stats = (data) => {
   
   let capitalize = (target) => {
-    let fixed = target[0].toUpperCase() + target.slice(1)
-    return fixed
+    let capitalized = target[0].toUpperCase() + target.slice(1);
+    return capitalized
   }
  
   let pokemonTypes = data.data.types.map((type)=>type.type.name)
@@ -205,8 +205,10 @@ let stats = (data) => {
     return weaknesses
   }
     let entries = Object.entries(weaknessCalc(pokemonTypes))
+    entries.sort(([a, b],[c, d]) => d - b)
     let map = entries.map((element) => {
-      return <div>{`${capitalize(element[0])}-type damage is ${element[1]}x. `}</div>
+      console.log(element[0])
+      return <div><span className={element[0]}>{`${capitalize(element[0])}`}</span>-type damage is {element[1]}x. </div>
     })
     return (
      <div>
