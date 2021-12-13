@@ -241,7 +241,7 @@ class EvolutionChain extends React.Component {
     return fixed
   }
 
-  evolutionMethod = (target) => {
+  evolutionMethod = (baseChain, target) => {
    return target["gender"] ? target["gender"] === 1 ? target["item"] ? `if female and exposed to the ${this.splitAndPunctuate(target["item"].name)} item.` : `if female at level ${target["min_level"]}.` : target["item"] ? `if male and exposed to the ${this.splitAndPunctuate(target["item"].name)} item.` : `if male at level ${target["min_level"]}.`
               : target["held_item"] ? target["trigger"].name === "level-up" ? target["time_of_day"] ? `when leveled up while holding the ${this.splitAndPunctuate(target["held_item"].name)} item during the ${target["time_of_day"]}.` : `when leveled up while holding the ${this.splitAndPunctuate(target["held_item"].name)} item.` : `when traded while holding the ${this.splitAndPunctuate(target["held_item"].name)} item.`
               : target["item"] ? `when exposed to the ${this.splitAndPunctuate(target["item"].name)} item.`
@@ -258,6 +258,8 @@ class EvolutionChain extends React.Component {
               : target["time_of_day"] ? `when leveled up during the ${target["time_of_day"]}.`
               : target["trade_species"] ? `when traded for a ${this.splitAndPunctuate(target["trade_species"].name)}.`
               : target["trigger"].name === "trade" ? "when traded."
+              : target["trigger"].name === "shed" ? `as well if the player has a spare slot in the party and an extra Poké Ball when evolving to ${this.splitAndPunctuate(baseChain["evolves_to"][0].species.name)}. `
+              : target["turn_upside_down"] ? `at level ${target["min_level"]} while the game system is held upside-down. `
               : `at level ${target["min_level"]}.`
   }
 
@@ -275,15 +277,20 @@ class EvolutionChain extends React.Component {
           let stageOneChain = chainData["evolves_to"][0]["evolution_details"][0];
           if (chainData["evolves_to"].length>=2) {
             //branching first stage
-            if (!stageOneChain) return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)}.`}</div>
+            if (chainData.species.name==="applin") return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} when exposed to the Tart Apple item, and to ${this.splitAndPunctuate(chainData["evolves_to"][1].species.name)} when exposed to the Sweet Apple item.`}</div>
+            if (chainData.species.name==="yamask") return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} at level ${stageOneChain["min_level"]}, or if of the Galarian regional variant to ${this.splitAndPunctuate(chainData["evolves_to"][1].species.name)} when the player travels under the stone bridge in Dusty Bowl after Yamask takes at least 49 HP in damage without fainting.`}</div>
             return chainData["evolves_to"].map((branch) => {
               let branchChain = branch["evolution_details"][0]
-              return <div id="display3">{`It evolves to ${this.splitAndPunctuate(branch.species.name)} `}{this.evolutionMethod(branchChain)}</div>
+              return <div id="display3">{`It evolves to ${this.splitAndPunctuate(branch.species.name)} `}{this.evolutionMethod(chainData, branchChain)}</div>
             })
           } else {
             //evolving first stage
-            if (!stageOneChain) return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)}.`}</div>
-        return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} `}{this.evolutionMethod(stageOneChain)}</div>
+            if (chainData.species.name==="meltan") return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} when given a total of 400 Meltan Candy in in Pokémon Go.`}</div>
+            if (chainData.species.name==="sinistea") return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} when exposed to the Cracked Pot or Chipped Pot items.`}</div>
+            if (chainData.species.name==="farfetchd") return <div id="display3">{`If of the Galarian regional variant, it evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} after landing three critical hits in a single battle. `}</div>
+            if (chainData.species.name==="milcery") return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} if holding a Sweet item when its trainer spins and strikes a pose. The form it evolves into depends on time of day, the length of the spin, and whether the trainer was spinning clockwise or counterclockwise. `}</div>
+            if (chainData.species.name==="kubfu") return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} Single Strike Style when trained in the Tower of Darkness, and to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} Rapid Strike Style when trained in the Tower of Waters.`}</div>
+        return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0].species.name)} `}{this.evolutionMethod(chainData, stageOneChain)}</div>
         }
         } else if (chainData["evolves_to"][0]["evolves_to"].length===0) {
           //evolved second stage does not evolve
@@ -301,18 +308,18 @@ class EvolutionChain extends React.Component {
           //branching evolution
             return chainData["evolves_to"][0]["evolves_to"].map((branch) => {
               let branchChain = branch["evolution_details"][0]
-              return <div id="display3">{`It evolves to ${this.splitAndPunctuate(branch.species.name)} `}{this.evolutionMethod(branchChain)}</div>
+              return <div id="display3">{`It evolves to ${this.splitAndPunctuate(branch.species.name)} `}{this.evolutionMethod(chainData, branchChain)}</div>
             })
           } else {
             if (chainData["evolves_to"][1]) {
               if (chainData["evolves_to"][0].species.name===this.props.name) {
                 //first branch second stage
-                return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0]["evolves_to"][0].species.name)} `}{this.evolutionMethod(stageTwoChain)}</div>
+                return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0]["evolves_to"][0].species.name)} `}{this.evolutionMethod(chainData, stageTwoChain)}</div>
               }
               else if (chainData["evolves_to"][1].species.name===this.props.name) {
                 //second branch second stage
                 let stageTwoBranch = chainData["evolves_to"][1]["evolves_to"][0]["evolution_details"][0];
-                return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][1]["evolves_to"][0].species.name)} `}{this.evolutionMethod(stageTwoBranch)}</div>
+                return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][1]["evolves_to"][0].species.name)} `}{this.evolutionMethod(chainData, stageTwoBranch)}</div>
               }
               else if (chainData["evolves_to"][1]["evolves_to"][0].species.name===this.props.name) {
                 //second branch third stage
@@ -320,7 +327,7 @@ class EvolutionChain extends React.Component {
               }
               return null
           }
-          return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0]["evolves_to"][0].species.name)} `}{this.evolutionMethod(stageTwoChain)}</div>
+          return <div id="display3">{`It evolves to ${this.splitAndPunctuate(chainData["evolves_to"][0]["evolves_to"][0].species.name)} `}{this.evolutionMethod(chainData, stageTwoChain)}</div>
           }
         } 
       }
