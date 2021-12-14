@@ -55,6 +55,13 @@ body {
   margin: auto 0 auto 0;
   max-width: 550px;
   max-height: 350px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#information::-webkit-scrollbar {
+  display: none;
 }
 
 #display1 {
@@ -85,6 +92,7 @@ body {
   padding: 5px;
   border: solid #2a75bb;
   border-radius: 15px;
+  background-color: white;
 }
 
 .normal {
@@ -157,4 +165,12 @@ body {
 
 .fairy {
   color: #ee99ac;
+}
+
+.statsTable {
+  border: solid black;
+}
+
+#statsTable {
+  margin: auto;
 }

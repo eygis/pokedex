@@ -87,11 +87,11 @@ let ContentDisplay = (data) => {
     <div id="nameDiv">
       <h1 id="pokemonName">{name}</h1>
     <div id="display1">
-      
+
       <div id="information" className="info">
         <div id="tabBar">
           <div className="tab" onClick={()=>setDisplay(<GenFunction priorData={data} species={data.data.species.url} />)}>Basic Information</div>
-          <div className="tab" onClick={()=>setDisplay(stats(data))}>Stats & Type Effectiveness</div>
+          <div className="tab" onClick={()=>setDisplay(typeEffectivenessAndStats(data))}>Type Effectiveness & Base Stats</div>
         </div>
         {currentDisplay}
         </div>
@@ -154,14 +154,27 @@ class GenFunction extends React.Component {
 }
 }
 
-let stats = (data) => {
-  
+let typeEffectivenessAndStats = (passedData) => {
+  let data = passedData.data;
   let capitalize = (target) => {
-    let capitalized = target[0].toUpperCase() + target.slice(1);
+    let capitalized;
+    capitalized = target[0].toUpperCase() + target.slice(1);
+    if (capitalized.includes("-")) {
+      capitalized = capitalized.split("-").map(i => i[0].toUpperCase() + i.slice(1)).join(" ")
+    }
+    if (capitalized.length===2) {
+      capitalized = capitalized.split("").map(i => i[0].toUpperCase()).join("")
+    }
     return capitalized
   }
- 
-  let pokemonTypes = data.data.types.map((type)=>type.type.name)
+  let statTotal = (passedData) => {
+    let total = 0;
+    passedData.stats.forEach(stat=>{
+      total+=stat["base_stat"]
+    })
+    return total
+  }
+  let pokemonTypes = passedData.data.types.map((type)=>type.type.name)
   let weaknessCalc = (targetTypes) => {
     let weaknesses  = {}
 
@@ -206,14 +219,26 @@ let stats = (data) => {
   }
     let entries = Object.entries(weaknessCalc(pokemonTypes))
     entries.sort(([a, b],[c, d]) => d - b)
-    let map = entries.map((element) => {
-      console.log(element[0])
+    let weaknessMap = entries.map((element) => {
+      //console.log(element[0])
       return <div><span className={element[0]}>{`${capitalize(element[0])}`}</span>-type damage is {element[1]}x. </div>
     })
     return (
      <div>
-       {map}
+       {weaknessMap}
        <p>All other damage types are 1x.</p>
+       <table id="statsTable" className="statsTable">
+       {data.stats.map(stat=>{
+         return <tr>
+           <td className="statsTable">{capitalize(stat.stat.name)}</td>
+           <td className="statsTable">{stat["base_stat"]}</td>
+           </tr>
+       })}
+       <tr>
+       <td>Total</td>
+       <td>{statTotal(data)}</td>
+       </tr>
+       </table>
        </div>
       
     )
