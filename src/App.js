@@ -1,6 +1,5 @@
 import './App.css';
-import React from 'react';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import defense_type_effectiveness from './defense_type_effectiveness.json'
 let typesList = defense_type_effectiveness;
 
@@ -91,7 +90,7 @@ let ContentDisplay = (data) => {
       <div id="information" className="info">
         <div id="tabBar">
           <div className="tab" onClick={()=>setDisplay(<GenFunction priorData={data} species={data.data.species.url} />)}>Basic Information</div>
-          <div className="tab" onClick={()=>setDisplay(typeEffectivenessAndStats(data))}>Type Effectiveness & Base Stats</div>
+          <div className="tab" onClick={()=>setDisplay(gameData(data))}>Game Data</div>
         </div>
         {currentDisplay}
         </div>
@@ -154,7 +153,7 @@ class GenFunction extends React.Component {
 }
 }
 
-let typeEffectivenessAndStats = (passedData) => {
+let gameData = (passedData) => {
   let data = passedData.data;
   let capitalize = (target) => {
     let capitalized;
@@ -167,13 +166,7 @@ let typeEffectivenessAndStats = (passedData) => {
     }
     return capitalized
   }
-  let statTotal = (passedData) => {
-    let total = 0;
-    passedData.stats.forEach(stat=>{
-      total+=stat["base_stat"]
-    })
-    return total
-  }
+
   let pokemonTypes = passedData.data.types.map((type)=>type.type.name)
   let weaknessCalc = (targetTypes) => {
     let weaknesses  = {}
@@ -220,13 +213,31 @@ let typeEffectivenessAndStats = (passedData) => {
     let entries = Object.entries(weaknessCalc(pokemonTypes))
     entries.sort(([a, b],[c, d]) => d - b)
     let weaknessMap = entries.map((element) => {
-      //console.log(element[0])
       return <div><span className={element[0]}>{`${capitalize(element[0])}`}</span>-type damage is {element[1]}x. </div>
     })
+
+    let hiddenDisplay = (passedAbility) => {
+      return (!passedAbility["is_hidden"]) ? passedAbility.ability.name : `${passedAbility.ability.name} (Hidden Ability)`
+    }
+
+    let statTotal = (passedData) => {
+      let total = 0;
+      passedData.stats.forEach(stat=>{
+        total+=stat["base_stat"]
+      })
+      return total
+    }
+
     return (
      <div>
+       <h2>Type Effectiveness</h2>
        {weaknessMap}
        <p>All other damage types are 1x.</p>
+       <h2>Abilities</h2>
+       {data.abilities.map(ability=>{
+        return <p>{capitalize(hiddenDisplay(ability))}</p>
+       })}
+       <h2>Base Stats</h2>
        <table id="statsTable" className="statsTable">
        {data.stats.map(stat=>{
          return <tr>
