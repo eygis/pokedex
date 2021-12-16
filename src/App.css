@@ -76,6 +76,10 @@ body {
   order: solid green;
 }
 
+#display2 > div {
+  margin: 5px;
+}
+
 #pokemonName {
   display: inline;
 }
@@ -173,4 +177,8 @@ body {
 
 #statsTable {
   margin: auto;
+}
+
+#weaknessMap {
+  margin: 2px;
 }
