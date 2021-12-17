@@ -25,7 +25,7 @@ class App extends React.Component {
     return (
       <div className="App">
       <div id="banner">
-      <h1><img src="https://fontmeme.com/permalink/211104/a930b2e32421ad097d5a5dcdedaa93f0.png" alt="pokemon-title" /></h1>
+      <h1><img src="https://fontmeme.com/permalink/211104/a930b2e32421ad097d5a5dcdedaa93f0.png" alt="pokemon-title" id="pokemon-title"/></h1>
       </div>
       <div id="content">
         <form id="searchForm" onSubmit={this.handleSubmit}>

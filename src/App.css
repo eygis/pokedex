@@ -15,6 +15,11 @@ body {
   left: 0;
 }
 
+#pokemon-title {
+  width: 100%;
+  max-width: 579px;
+}
+
 #footer {
   background-color: #e4000f;
   text-align: center;
