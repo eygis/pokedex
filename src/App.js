@@ -90,7 +90,7 @@ let ContentDisplay = (data) => {
       <div id="information" className="info">
         <div id="tabBar">
           <div className="tab" onClick={()=>setDisplay(<GenFunction priorData={data} species={data.data.species.url} />)}>Basic Information</div>
-          <div className="tab" onClick={()=>setDisplay(GameData(data))}>Game Data</div>
+          <div className="tab" onClick={()=>setDisplay(<GameData passedData={data} />)}>Game Data</div>
         </div>
         {currentDisplay}
         </div>
@@ -155,9 +155,7 @@ class GenFunction extends React.Component {
 
 let GameData = (passedData) => {
   
-  const [currentAbility, setAbility] = useState('')
-  
-  let data = passedData.data;
+  const [currentAbility, setAbility] = useState()
   
   let capitalize = (target) => {
     let capitalized;
@@ -171,7 +169,7 @@ let GameData = (passedData) => {
     return capitalized
   }
 
-  let pokemonTypes = passedData.data.types.map((type)=>type.type.name)
+  let pokemonTypes = passedData.passedData.data.types.map((type)=>type.type.name)
   let weaknessCalc = (targetTypes) => {
     let weaknesses  = {}
 
@@ -237,7 +235,7 @@ let GameData = (passedData) => {
 
     let statTotal = (passedData) => {
       let total = 0;
-      passedData.stats.forEach(stat=>{
+      passedData.passedData.data.stats.forEach(stat=>{
         total+=stat["base_stat"]
       })
       return total
@@ -249,14 +247,14 @@ let GameData = (passedData) => {
        {weaknessMap}
        <p>All other damage types are 1x.</p>
        <h2>Abilities</h2>
-       {data.abilities.map(ability=>{
-        return <p className="tooltip" onMouseEnter={()=>setAbility(abilityFunction(ability.ability.name))}>{capitalize(hiddenDisplay(ability))}
-        <span className="tooltipText">{currentAbility ? currentAbility : "Loading..."}</span>
+       {passedData.passedData.data.abilities.map(ability=>{
+        return <p className="tooltip" onClick={()=>setAbility(abilityFunction(ability.ability.name))}>{capitalize(hiddenDisplay(ability))}
+        <span className="tooltipText">test{console.log(currentAbility)}</span>
         </p>
        })}
        <h2>Base Stats</h2>
        <table id="statsTable" className="statsTable">
-       {data.stats.map(stat=>{
+       {passedData.passedData.data.stats.map(stat=>{
          return <tr>
            <td className="statsTable">{capitalize(stat.stat.name)}</td>
            <td className="statsTable">{stat["base_stat"]}</td>
@@ -264,7 +262,7 @@ let GameData = (passedData) => {
        })}
        <tr>
        <td>Total</td>
-       <td>{statTotal(data)}</td>
+       <td>{statTotal(passedData)}</td>
        </tr>
        </table>
        </div>
