@@ -90,7 +90,7 @@ let ContentDisplay = (data) => {
       <div id="information" className="info">
         <div id="tabBar">
           <div className="tab" onClick={()=>setDisplay(<GenFunction priorData={data} species={data.data.species.url} />)}>Basic Information</div>
-          <div className="tab" onClick={()=>setDisplay(gameData(data))}>Game Data</div>
+          <div className="tab" onClick={()=>setDisplay(GameData(data))}>Game Data</div>
         </div>
         {currentDisplay}
         </div>
@@ -153,7 +153,7 @@ class GenFunction extends React.Component {
 }
 }
 
-let gameData = (passedData) => {
+let GameData = (passedData) => {
   let data = passedData.data;
   let capitalize = (target) => {
     let capitalized;
@@ -220,6 +220,18 @@ let gameData = (passedData) => {
       return (!passedAbility["is_hidden"]) ? passedAbility.ability.name : `${passedAbility.ability.name} (Hidden Ability)`
     }
 
+    const [currentAbility, setAbility] = useState('')
+
+    let abilityFunction = async (abilityName) => {
+      try {
+        const res = await fetch(`https://pokeapi.co/api/v2/ability/${abilityName}/`);
+        const data = await res.json();
+        return data["effect_entries"][0]["short_effect"] 
+      } catch (err) {
+        return "error"
+      }
+    }
+
     let statTotal = (passedData) => {
       let total = 0;
       passedData.stats.forEach(stat=>{
@@ -235,7 +247,9 @@ let gameData = (passedData) => {
        <p>All other damage types are 1x.</p>
        <h2>Abilities</h2>
        {data.abilities.map(ability=>{
-        return <p>{capitalize(hiddenDisplay(ability))}</p>
+        return <p className="tooltip" onMouseEnter={()=>setAbility(abilityFunction(ability.ability.name))}>{capitalize(hiddenDisplay(ability))}
+        <span className="tooltipText">{currentAbility ? currentAbility : "Loading..."}</span>
+        </p>
        })}
        <h2>Base Stats</h2>
        <table id="statsTable" className="statsTable">
