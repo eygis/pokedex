@@ -154,9 +154,7 @@ class GenFunction extends React.Component {
 }
 
 let GameData = (passedData) => {
-  
-  const [currentAbility, setAbility] = useState()
-  
+  let data = passedData.passedData.data
   let capitalize = (target) => {
     let capitalized;
     capitalized = target[0].toUpperCase() + target.slice(1);
@@ -169,7 +167,7 @@ let GameData = (passedData) => {
     return capitalized
   }
 
-  let pokemonTypes = passedData.passedData.data.types.map((type)=>type.type.name)
+  let pokemonTypes = data.types.map((type)=>type.type.name)
   let weaknessCalc = (targetTypes) => {
     let weaknesses  = {}
 
@@ -222,20 +220,37 @@ let GameData = (passedData) => {
       return (!passedAbility["is_hidden"]) ? passedAbility.ability.name : `${passedAbility.ability.name} (Hidden Ability)`
     }
 
+    const [currentAbility, setAbility] = useState()
 
     let abilityFunction = async (abilityName) => {
       try {
+        setAbility("Loading...")
         const res = await fetch(`https://pokeapi.co/api/v2/ability/${abilityName}/`);
         const data = await res.json();
-        return data["effect_entries"][0]["short_effect"] 
+        if (!data) {
+          setAbility(null)
+        } else if (data) {
+          if (data["effect_entries"].length>=1) {
+         if (data["effect_entries"][0].language.name==="en") {
+           setAbility(data["effect_entries"][0]["short_effect"])
+         } else {  
+        setAbility(data["effect_entries"][1]["short_effect"])
+         }
+        } else if (data["flavor_text_entries"].length>=1) {
+          setAbility(data["flavor_text_entries"][0]["flavor_text"])
+        }
+        } else {
+          setAbility(null)
+        }
       } catch (err) {
-        return "error"
+        setAbility("Information Unavailable.")
       }
     }
+    
 
-    let statTotal = (passedData) => {
+    let statTotal = (data) => {
       let total = 0;
-      passedData.passedData.data.stats.forEach(stat=>{
+      data.stats.forEach(stat=>{
         total+=stat["base_stat"]
       })
       return total
@@ -247,23 +262,25 @@ let GameData = (passedData) => {
        {weaknessMap}
        <p>All other damage types are 1x.</p>
        <h2>Abilities</h2>
-       {passedData.passedData.data.abilities.map(ability=>{
-        return <p className="tooltip" onClick={()=>setAbility(abilityFunction(ability.ability.name))}>{capitalize(hiddenDisplay(ability))}
-        <span className="tooltipText">test{console.log(currentAbility)}</span>
+       {data.abilities.map(ability=>{
+        return <p className="tooltip" key={ability.ability.name} onMouseEnter={()=>abilityFunction(ability.ability.name)}>{capitalize(hiddenDisplay(ability))}
+        <span className="tooltipText">{currentAbility}</span>
         </p>
        })}
        <h2>Base Stats</h2>
        <table id="statsTable" className="statsTable">
-       {passedData.passedData.data.stats.map(stat=>{
-         return <tr>
+       <tbody>
+       {data.stats.map(stat=>{
+         return <tr key={stat.stat.name}>
            <td className="statsTable">{capitalize(stat.stat.name)}</td>
            <td className="statsTable">{stat["base_stat"]}</td>
            </tr>
        })}
        <tr>
        <td>Total</td>
-       <td>{statTotal(passedData)}</td>
+       <td>{statTotal(data)}</td>
        </tr>
+       </tbody>
        </table>
        </div>
       
