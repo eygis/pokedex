@@ -154,7 +154,11 @@ class GenFunction extends React.Component {
 }
 
 let GameData = (passedData) => {
+  
+  const [currentAbility, setAbility] = useState('')
+  
   let data = passedData.data;
+  
   let capitalize = (target) => {
     let capitalized;
     capitalized = target[0].toUpperCase() + target.slice(1);
@@ -220,7 +224,6 @@ let GameData = (passedData) => {
       return (!passedAbility["is_hidden"]) ? passedAbility.ability.name : `${passedAbility.ability.name} (Hidden Ability)`
     }
 
-    const [currentAbility, setAbility] = useState('')
 
     let abilityFunction = async (abilityName) => {
       try {
