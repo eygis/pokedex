@@ -213,7 +213,7 @@ let GameData = (passedData) => {
     let entries = Object.entries(weaknessCalc(pokemonTypes))
     entries.sort(([a, b],[c, d]) => d - b)
     let weaknessMap = entries.map((element) => {
-      return <div id="weaknessMap"><span className={element[0]}>{`${capitalize(element[0])}`}</span>-type damage is {element[1]}x. </div>
+      return <div key={element} id="weaknessMap"><span className={element[0]}>{`${capitalize(element[0])}`}</span>-type damage is {element[1]}x. </div>
     })
 
     let hiddenDisplay = (passedAbility) => {
