@@ -258,7 +258,7 @@ let GameData = (passedData) => {
 
     return (
      <div>
-       <h2>Type Effectiveness</h2>
+       <h2>Defensive Type Effectiveness</h2>
        {weaknessMap}
        <p>All other damage types are 1x.</p>
        <h2>Abilities</h2>
