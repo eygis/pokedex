@@ -40,11 +40,14 @@ body {
   width: 15%;
   text-align: center;
   border-right: none;
-  margin-bottom: 10px;
 }
 
 #searchButton {
   border-left: none;
+}
+
+#pokemonName {
+  text-decoration: underline;
 }
 
 #pokePicture {
@@ -83,7 +86,7 @@ body {
   order: solid red;
   display: flex;
   justify-content: space-around;
-  margin-top: -20px;
+  margin-top: 0px;
   height: 350px;
 }
 
