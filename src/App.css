@@ -63,7 +63,7 @@ body {
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  border-radius: 10px;
+  border-radius: 15px;
   background-image: linear-gradient(to top, white, white),
     linear-gradient(to top, white, white),
     linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0)),
