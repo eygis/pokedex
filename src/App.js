@@ -29,7 +29,7 @@ class App extends React.Component {
       </div>
       <div id="content">
         <form id="searchForm" onSubmit={this.handleSubmit}>
-          <input id="searchInput" type="text" placeholder="search for a Pokémon here!" onChange={this.handleChange} />
+          <input id="searchInput" type="text" placeholder="search for a Pokémon here!" onChange={this.handleChange} required />
           <button id="searchButton" type="submit">Search</button>
         </form>
         {this.state.requested && (<SearchReturn targetPokemon={this.state.searchTarget} />)}
