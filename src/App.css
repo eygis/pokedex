@@ -233,3 +233,11 @@ body {
   border-style: solid;
   border-color: black transparent transparent transparent;
 }
+
+#tip {
+  text-align: center;
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
