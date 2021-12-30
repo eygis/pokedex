@@ -39,6 +39,13 @@ body {
   width: 15%;
   text-align: center;
   border-right: none;
+  outline: none;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+#searchInput:focus {
+  background-color: #ffe681;
 }
 
 #searchButton {
@@ -240,4 +247,6 @@ body {
   bottom: 10px;
   left: 50%;
   transform: translate(-50%, 0);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }

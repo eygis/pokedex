@@ -14,13 +14,13 @@ class App extends React.Component {
       searchTarget: e.target.value,
       requested: false
     })
-    document.getElementById("tip").style.visibility = "visible"
+    document.getElementById("tip").style.opacity = "100%"
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     this.setState({requested: true})
-    document.getElementById("tip").style.visibility = "hidden"
+    document.getElementById("tip").style.opacity = "0%"
   }
 
   render() {
