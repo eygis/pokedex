@@ -44,6 +44,7 @@ body {
   outline: none;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  border-radius: 10px 0 0 10px;
 }
 
 #searchInput:focus {
@@ -52,6 +53,7 @@ body {
 
 #searchButton {
   border-left: none;
+  border-radius: 0 10px 10px 0;
 }
 
 #pokemonName {
