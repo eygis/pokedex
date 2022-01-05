@@ -36,7 +36,7 @@ class App extends React.Component {
         </form>
         {this.state.requested && (<SearchReturn targetPokemon={this.state.searchTarget} />)}
       </div>
-      <p id="tip">TIP: If the pokemon you're searching for is a specific form or variant, search using that variant or form's name, for example: "muk-alola" or "lycanroc-dusk"
+      <p id="tip">TIP: If the Pokémon you're searching for is a specific form or variant, search using that variant or form's name, for example: "muk-alola" or "lycanroc-dusk"
 </p>
       <div id="footer">Pokémon and Pokémon character names are trademarks of Nintendo.</div>
     </div>
