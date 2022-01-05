@@ -38,7 +38,7 @@ class App extends React.Component {
       </div>
       <p id="tip">TIP: If the Pokémon you're searching for is a specific form or variant, search using that variant or form's name, for example: "muk-alola" or "lycanroc-dusk"
 </p>
-      <div id="footer">Pokémon and Pokémon character names are trademarks of Nintendo.</div>
+      <div id="footer">Pokémon © 2002-2022 Pokémon. © 1995-2022 Nintendo/Creatures Inc./GAME FREAK inc. TM, ® and Pokémon character names are trademarks of Nintendo. No copyright or trademark infringement is intended in using Pokémon content on this page.</div>
     </div>
     )
   }
