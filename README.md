@@ -1,3 +1,3 @@
 Live site: https://pokedatabase.netlify.app
 
-pokedex app created using create-react-app
+pokedex app bootstrapped with create-react-app
